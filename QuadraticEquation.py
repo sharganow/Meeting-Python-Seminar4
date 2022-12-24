@@ -7,14 +7,24 @@
 # и уже с готовыми исходными данными посчитать корни квадратного уравнения
 # и представить результат
 
-equation = '  -4 * X**2 + 28 * x - 49 = 0'
+equation = '  -4 * X**2 + 28x - 49 = 0'
 
 
 def get_dict_odd(item_equ: str) -> list:
     if item_equ.endswith('x**2'):
-        return ['A', item_equ.replace('x**2', '').replace('*', '')]
+        if item_equ.startswith('-x'):
+            return ['A', -1]
+        elif item_equ.startswith('x'):
+            return ['A', 1]
+        else:
+            return ['A', item_equ.replace('x**2', '').replace('*', '')]
     elif item_equ.endswith('x'):
-        return ['B', item_equ.replace('x', '').replace('*', '')]
+        if item_equ.startswith('-x'):
+            return ['B', -1]
+        elif item_equ.startswith('x'):
+            return ['B', 1]
+        else:
+            return ['B', item_equ.replace('x', '').replace('*', '')]
     elif item_equ[-1].isdigit():
         return ['C', item_equ]
     else:
@@ -70,7 +80,11 @@ def new_equation(param: dict) -> str:
 
 odds = calc_quadratic_roots(fined_odds(equation))
 math_equation = new_equation(odds)
-x1, x2 = round(odds.get('x1'), 2), round(odds.get('x2'), 2)
+x1, x2 = odds.get('x1'), odds.get('x2')
+if type(x1) == float:
+    x1 = round(x1, 2)
+if type(x2) == float:
+    x2 = round(x2, 2)
 print(f'---\nДля полученой строки {equation} квадратное уравнение может быть представлено следующим образом:\n'
       f'{math_equation}, а корни для данного уравнения x1 = {x1}, x2 = {x2}\n---')
 
