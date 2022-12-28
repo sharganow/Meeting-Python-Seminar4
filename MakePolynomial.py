@@ -5,18 +5,27 @@
 # Пример:
 # если k = 2, то многочлены могут быть => 2*x² + 4*x + 5 = 0 или x² + 5 = 0 или 10*x² = 0
 
+# P.S. данную задачу я дополнил фукцией ведения журнала сформированных файлов для облегчения поиска последних
+
+journal = 'journal.pln'
+
+
 def enter_filename() -> str:
     while True:
         try:
             file_name = input('Задайте имя файла для хранения полинома: ')
-            file_name.lower()
+            file_name = file_name.lower()
             lst = file_name.split('.')
             if lst[0].isalnum():
                 if len(lst) == 1:
                     file_name += '.pln'
                 else:
                     file_name = lst[0] + '.pln'
-                break
+                if file_name == journal:
+                    print(f'Имя {file_name} занято, используйте иное')
+                    continue
+                else:
+                    break
             else:
                 print('Имя файла содержит недопустимые символы')
                 continue
@@ -29,6 +38,7 @@ def enter_digry_polynom() -> int:
     while True:
         try:
             degree = int(input('Введите старшую степень создаваемого полинома: '))
+            degree = abs(degree)
             break
         except:
             print('Вводимое значение должно быть целым числом')
@@ -76,7 +86,34 @@ def save_to_file(name: str, polinom: str) -> None:
             data.close()
     with open(name, 'w') as data:
         data.write(old + polinom)
+    addFileNameToJournal(name)
+
+
+def addFileNameToJournal(name: str) -> None:
+    while True:
+        try:
+            data = open(journal, 'r')
+            dt = data.read()
+            if name in dt:
+                data.close()
+                return
+            old = list()
+            if '\n' in dt:
+                old = list(dt.split('\n'))
+            else:
+                old.append(dt)
+            data.close()
+            break
+        except:
+            data = open(journal, 'a')
+            data.write(name)
+            data.close()
+    with open(journal, 'w') as data:
+        old.append(name)
+        new = old[0]
+        for i in range(1, len(old), 1):
+            new += '\n' + old[i]
+        data.write(new)
 
 
 save_to_file(enter_filename(), make_polinomial(enter_digry_polynom()))
-# print(make_polinomial(enter_digry_polynom()))
