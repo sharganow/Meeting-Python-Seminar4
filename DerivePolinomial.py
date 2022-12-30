@@ -6,16 +6,15 @@
 # Расширить значение коэффициентов до [-100..100]
 
 import MakePolynomial as Mpl
-import QuadraticEquation as Qe
 
-Mpl.journal
+# import QuadraticEquation as Qe
 
 
-def FillDictJournal(_: None) -> dict:
+def FillDictJournal() -> dict:
     while True:
         try:
             data = open(Mpl.journal, 'r')
-            fl = data.read()        # fl file list
+            fl = data.read()  # fl file list
             if '.' in fl:
                 fls = list()
                 if '\n' in fl:
@@ -48,7 +47,7 @@ def GetEquationFromFile(name: str) -> list:
     while True:
         try:
             data = open(name, 'r')
-            el = data.read()        # el equation list
+            el = data.read()  # el equation list
             if el.count('='):
                 eqs = list()
                 if '\n' in el:
@@ -57,6 +56,11 @@ def GetEquationFromFile(name: str) -> list:
                     eqs.append(el)
             else:
                 # Полинома нет - нужно создать
+                data.close()
+                eqs.append(Mpl.make_polinomial(Mpl.enter_digry_polynom()))
+                with open(name, 'w') as data:
+                    data.write(eqs[0])
+                data = open(name, 'r')
             data.close()
             break
         except:
@@ -65,5 +69,36 @@ def GetEquationFromFile(name: str) -> list:
             # генерации полинома в файле
             # раз уж даже файла небыло
             # data.write('0 = 0')
+            data.write(Mpl.make_polinomial(Mpl.enter_digry_polynom()))
             data.close()
     return eqs
+
+
+def MakeChoiceFile(source: dict, choiсe: dict) -> None:
+    while True:
+        try:
+            file = input('Введите имя выбранного файла: ')
+            if file in source:
+                choiсe[file] = source.pop(file)
+                break
+            else:
+                print('Фала с таким именем в дирректории нет, требуется повтор')
+        except:
+            print('Вы делаете что-то не так, соберитесь')
+    print('Исходный список файлов:')
+    for item in source:
+        print('{}\t\t\t{}'.format(item, source[item][0]))
+    print('Список выбранных файлов:')
+    for item in choiсe:
+        print('{}\t\t\t{}'.format(item, choiсe[item][0]))
+
+
+choiсeDct = dict()
+dct = FillDictJournal()
+for item in dct:
+    print('{}\t\t\t{}'.format(item, dct[item][0]))
+print('\nДля создания нового полинома из списка имеющихся '
+      'выберите слагаемые полиномы из списка выше по имени файла\n')
+MakeChoiceFile(dct, choiсeDct)
+print('\nВыберите второй слагаемый полином из списка\n')
+MakeChoiceFile(dct, choiсeDct)

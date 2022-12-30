@@ -116,4 +116,4 @@ def addFileNameToJournal(name: str) -> None:
         data.write(new)
 
 
-save_to_file(enter_filename(), make_polinomial(enter_digry_polynom()))
+# save_to_file(enter_filename(), make_polinomial(enter_digry_polynom()))

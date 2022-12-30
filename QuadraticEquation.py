@@ -7,7 +7,7 @@
 # и уже с готовыми исходными данными посчитать корни квадратного уравнения
 # и представить результат
 
-equation = '  -4 * X**2 + 28x - 49 = 0'
+equation = '  -5 * X**2 + 123 * x - 147 = 0'
 
 
 def get_dict_odd(item_equ: str) -> list:
@@ -28,7 +28,7 @@ def get_dict_odd(item_equ: str) -> list:
     elif item_equ[-1].isdigit():
         return ['C', item_equ]
     else:
-        return ['D', -1]
+        return ['D', -1]        # Предсказание об отсутствии корней
 
 
 def fined_odds(equ: str) -> dict:
@@ -43,7 +43,6 @@ def fined_odds(equ: str) -> dict:
 
 
 def calc_quadratic_roots(param: dict) -> dict:
-    # odds = dict()
     if param.get('A') is None or param.get('B') is None or param.get('C') is None:
         param['x1'] = 'Корней нет'
         param['x2'] = 'Смотри x1'
