@@ -82,7 +82,7 @@ def MakeChoiceFile(source: dict, choiсe: dict) -> None:
                 choiсe[file] = source.pop(file)
                 break
             else:
-                print('Фала с таким именем в дирректории нет, требуется повтор')
+                print('Файла с таким именем в дирректории нет, требуется повтор')
         except:
             print('Вы делаете что-то не так, соберитесь')
     print('Исходный список файлов:')

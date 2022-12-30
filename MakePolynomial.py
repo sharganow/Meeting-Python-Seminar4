@@ -4,6 +4,8 @@
 # записать в файл многочлен степени k.
 # Пример:
 # если k = 2, то многочлены могут быть => 2*x² + 4*x + 5 = 0 или x² + 5 = 0 или 10*x² = 0
+# НЕОБЯЗАТЕЛЬНОЕ, ДОПОЛНИТЕЛЬНОЕ ЗАДАНИЕ:
+# Расширить значение коэффициентов до [-100..100]
 
 # P.S. данную задачу я дополнил фукцией ведения журнала сформированных файлов для облегчения поиска последних
 
@@ -116,4 +118,4 @@ def addFileNameToJournal(name: str) -> None:
         data.write(new)
 
 
-# save_to_file(enter_filename(), make_polinomial(enter_digry_polynom()))
+save_to_file(enter_filename(), make_polinomial(enter_digry_polynom()))
