@@ -6,6 +6,7 @@
 # Расширить значение коэффициентов до [-100..100]
 
 import MakePolynomial as Mpl
+import QuadraticEquation as Qe
 
 Mpl.journal
 
@@ -21,18 +22,26 @@ def FillDictJournal(_: None) -> dict:
                     fls = list(fl.split('\n'))
                 else:
                     fls.append(fl)
-                    # Одного файла не хватает, нужно его создать
+                    # Одного файла не хватает, нужно его создать:
+                    Mpl.save_to_file(Mpl.enter_filename(), Mpl.make_polinomial(Mpl.enter_digry_polynom()))
             else:
                 # В журнале файлов не обнаружилось
-                # их нужно создать
-            dictFileEqua = dict()
+                # их нужно создать:
+                for _ in range(2):
+                    Mpl.save_to_file(Mpl.enter_filename(), Mpl.make_polinomial(Mpl.enter_digry_polynom()))
+            dictFileEquat = dict()
+            for f in fls:
+                dictFileEquat[f] = GetEquationFromFile(f)
             data.close()
             break
         except:
             data = open(Mpl.journal, 'a')
             # Здесь нужно реализовать создание файлов с полиномами
-            # раз уж даже журнала не было
+            # раз уж даже журнала не было:
+            for _ in range(2):
+                Mpl.save_to_file(Mpl.enter_filename(), Mpl.make_polinomial(Mpl.enter_digry_polynom()))
             data.close()
+    return dictFileEquat
 
 
 def GetEquationFromFile(name: str) -> list:
