@@ -126,6 +126,47 @@ def MakeOddsFromEquation(eqtn: str) -> dict:
     return oddsf
 
 
+def UniteTwoOdds(odd1: dict, odd2: dict) -> dict:
+    twoOdds = dict()
+    lstOdd1 = list(odd1.keys())
+    lstOdd2 = list(odd2.keys())
+    for i in lstOdd1:
+        if i in lstOdd2:
+            twoOdds[i] = odd1.get(i) + odd2.get(i)
+            del (lstOdd2[lstOdd2.index(i)])
+        else:
+            twoOdds[i] = odd1.get(i)
+    for i in lstOdd2:
+        twoOdds[i] = odd2.get(i)
+    return twoOdds
+
+
+def MakeEquation(odd: dict) -> str:
+    newEq = str()
+    lstOdd = list(odd.keys())
+    lstOdd.sort()
+    lstOdd.reverse()
+    for i in lstOdd:
+        if i != '0':
+            if odd.get(i) > 0:
+                newEq += ' + ' + str(odd.pop(i)) + '*x**' + i
+            elif odd.get(i) < 0:
+                newEq += ' ' + str(odd.pop(i)) + '*x**' + i
+            else:
+                odd.pop(i)
+        else:
+            if odd.get(i) > 0:
+                newEq += ' + ' + str(odd.pop(i)) + ' = 0'
+            elif odd.get(i) < 0:
+                newEq += ' ' + str(odd.pop(i)) + ' = 0'
+            else:
+                odd.pop(i)
+    newEq = newEq.strip()
+    if newEq.startswith('+ '):
+        newEq = newEq[2:]
+    return newEq
+
+
 choiсeDct = dict()
 dct = FillDictJournal()
 for item in dct:
@@ -135,7 +176,14 @@ print('\nДля создания нового полинома из списка
 MakeChoiceFile(dct, choiсeDct)
 print('\nВыберите второй слагаемый полином из списка\n')
 MakeChoiceFile(dct, choiсeDct)
+print('По результату сложения двух выбранных полиномов - для нового  ', end='')
+fileUnionEquation = Mpl.enter_filename()
 
 lstChDct = list(choiсeDct.keys())
 dctEqn1 = MakeOddsFromEquation(choiсeDct.get(lstChDct[0])[0])
 dctEqn2 = MakeOddsFromEquation(choiсeDct[lstChDct[1]][0])
+untEqn = UniteTwoOdds(dctEqn1, dctEqn2)
+newEquation = MakeEquation(untEqn)
+Mpl.save_to_file(fileUnionEquation, newEquation)
+print('{}\t\t\t{}'.format(fileUnionEquation, newEquation))
+
