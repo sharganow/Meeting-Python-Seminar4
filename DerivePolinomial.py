@@ -7,6 +7,7 @@
 
 import MakePolynomial as Mpl
 
+
 # import QuadraticEquation as Qe
 
 
@@ -93,6 +94,38 @@ def MakeChoiceFile(source: dict, choiсe: dict) -> None:
         print('{}\t\t\t{}'.format(item, choiсe[item][0]))
 
 
+def get_dict_odd(item_equ: str) -> list:
+    if '*x**' in item_equ:
+        item_equ = item_equ.replace('*x**', ' ').split(' ')
+        return [item_equ[1], int(item_equ[0])]
+    elif item_equ[0] != '-' and item_equ.isnumeric():
+        return ['0', int(item_equ)]
+    elif item_equ[0] == '-' and item_equ[1:].isnumeric():
+        return ['0', int(item_equ)]
+    else:
+        print('Выражение не соответствует установленному формату')
+        return ['0', 0]
+
+
+def MakeOddsFromEquation(eqtn: str) -> dict:
+    oddsf = dict()
+    eqtn = eqtn.strip().lower()
+    if ' ' in eqtn:
+        eqtn = eqtn.replace(' ', '')
+    if '=0' in eqtn:
+        eqtn = eqtn.replace('=0', '')
+    if '+' in eqtn:
+        eqtn = eqtn.replace('+', ' ')
+    if '-' in eqtn:
+        eqtn = eqtn.replace('-', ' -')
+    eqtn = eqtn.strip().split(' ')
+    lst = list()
+    for i in eqtn:
+        lst = get_dict_odd(i)
+        oddsf[lst[0]] = lst[1]
+    return oddsf
+
+
 choiсeDct = dict()
 dct = FillDictJournal()
 for item in dct:
@@ -102,3 +135,7 @@ print('\nДля создания нового полинома из списка
 MakeChoiceFile(dct, choiсeDct)
 print('\nВыберите второй слагаемый полином из списка\n')
 MakeChoiceFile(dct, choiсeDct)
+
+lstChDct = list(choiсeDct.keys())
+dctEqn1 = MakeOddsFromEquation(choiсeDct.get(lstChDct[0])[0])
+dctEqn2 = MakeOddsFromEquation(choiсeDct[lstChDct[1]][0])
