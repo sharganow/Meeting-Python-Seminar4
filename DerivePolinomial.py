@@ -128,15 +128,7 @@ def get_dict_odd(item_equ: str) -> list:
 
 def MakeOddsFromEquation(eqtn: str) -> dict:
     oddsf = dict()
-    eqtn = eqtn.strip().lower()
-    if ' ' in eqtn:
-        eqtn = eqtn.replace(' ', '')
-    if '=0' in eqtn:
-        eqtn = eqtn.replace('=0', '')
-    if '+' in eqtn:
-        eqtn = eqtn.replace('+', ' ')
-    if '-' in eqtn:
-        eqtn = eqtn.replace('-', ' -')
+    eqtn = eqtn.strip().lower().replace(' ', '').replace('=0', '').replace('+', ' ').replace('-', ' -')
     eqtn = eqtn.strip().split(' ')
     lst = list()
     for i in eqtn:
