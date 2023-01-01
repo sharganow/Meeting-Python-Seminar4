@@ -17,31 +17,32 @@ def FillDictJournal() -> dict:
         try:
             data = open(Mpl.journal, 'r')
             fl = data.read()  # fl file list
+            data.close()
             if '.' in fl:
                 fls = list()
                 if '\n' in fl:
                     fls = list(fl.split('\n'))
                 else:
-                    fls.append(fl)
                     # Одного файла не хватает, нужно его создать:
                     Mpl.save_to_file(Mpl.enter_filename(), Mpl.make_polinomial(Mpl.enter_digry_polynom()))
+                    continue
             else:
                 # В журнале файлов не обнаружилось
                 # их нужно создать:
                 for _ in range(2):
                     Mpl.save_to_file(Mpl.enter_filename(), Mpl.make_polinomial(Mpl.enter_digry_polynom()))
+                continue
             dictFileEquat = dict()
             for f in fls:
                 dictFileEquat[f] = GetEquationFromFile(f)
-            data.close()
             break
         except:
-            data = open(Mpl.journal, 'a')
+            # data = open(Mpl.journal, 'a')
             # Здесь нужно реализовать создание файлов с полиномами
             # раз уж даже журнала не было:
             for _ in range(2):
                 Mpl.save_to_file(Mpl.enter_filename(), Mpl.make_polinomial(Mpl.enter_digry_polynom()))
-            data.close()
+            # data.close()
     return dictFileEquat
 
 

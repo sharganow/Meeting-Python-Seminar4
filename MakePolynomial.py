@@ -81,9 +81,9 @@ def save_to_file(name: str, polinom: str) -> None:
         try:
             data = open(name, 'r')
             old = data.read()
+            data.close()
             if len(old):
                 old += '\n'
-            data.close()
             break
         except:
             data = open(name, 'a')
@@ -98,15 +98,14 @@ def addFileNameToJournal(name: str) -> None:
         try:
             data = open(journal, 'r')
             dt = data.read()
+            data.close()
             if name in dt:
-                data.close()
                 return
             old = list()
             if '\n' in dt:
                 old = list(dt.split('\n'))
             else:
                 old.append(dt)
-            data.close()
             break
         except:
             data = open(journal, 'a')
