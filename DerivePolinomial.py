@@ -191,9 +191,9 @@ dct = FillDictJournal()
 for item in dct:
     AlignedPrint(item, ident_print, dct[item][0])
 print('\nДля создания нового полинома из списка имеющихся '
-      'выберите слагаемые полиномы из списка выше по имени файла\n')
+      'выберите слагаемые полиномы из списка выше по имени файла')
 MakeChoiceFile(dct, choiсeDct)
-print('\nВыберите второй слагаемый полином из списка\n')
+print('\nВыберите второй слагаемый полином из списка')
 MakeChoiceFile(dct, choiсeDct)
 print('По результату сложения двух выбранных полиномов - для нового  ', end='')
 fileUnionEquation = Mpl.enter_filename()
