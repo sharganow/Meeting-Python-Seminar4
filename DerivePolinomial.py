@@ -51,20 +51,19 @@ def GetEquationFromFile(name: str) -> list:
         try:
             data = open(name, 'r')
             el = data.read()  # el equation list
+            data.close()
+            eqs = list()
             if el.count('='):
-                eqs = list()
                 if '\n' in el:
                     eqs = list(el.split('\n'))
                 else:
                     eqs.append(el)
             else:
                 # Полинома нет - нужно создать
-                data.close()
                 eqs.append(Mpl.make_polinomial(Mpl.enter_digry_polynom()))
                 with open(name, 'w') as data:
                     data.write(eqs[0])
                 data = open(name, 'r')
-            data.close()
             break
         except:
             data = open(name, 'a')
