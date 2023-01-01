@@ -6,7 +6,7 @@
 # Расширить значение коэффициентов до [-100..100]
 
 import MakePolynomial as Mpl
-
+ident_print = 20
 
 # import QuadraticEquation as Qe
 
@@ -75,10 +75,28 @@ def GetEquationFromFile(name: str) -> list:
     return eqs
 
 
+def HelpToFindExistFile(short_name: str, source: dict) -> str:
+    listSousce = list(source.keys())
+    for file in listSousce:
+        if short_name in file:
+            return file
+    else:
+        return short_name
+
+
+def AlignedPrint(start, indent, second) -> None:
+    multiple = 0
+    indent_str = '\t'  # эквивалентно четырём символам
+    multiple = indent // 4 - len(str(start)) // 4
+    indent_str *= multiple
+    print('{}{}{}'.format(start, indent_str, second))
+
+
 def MakeChoiceFile(source: dict, choiсe: dict) -> None:
     while True:
         try:
             file = input('Введите имя выбранного файла: ')
+            file = HelpToFindExistFile(file, source)
             if file in source:
                 choiсe[file] = source.pop(file)
                 break
@@ -88,10 +106,10 @@ def MakeChoiceFile(source: dict, choiсe: dict) -> None:
             print('Вы делаете что-то не так, соберитесь')
     print('Исходный список файлов:')
     for item in source:
-        print('{}\t\t\t{}'.format(item, source[item][0]))
+        AlignedPrint(item, ident_print, source[item][0])
     print('Список выбранных файлов:')
     for item in choiсe:
-        print('{}\t\t\t{}'.format(item, choiсe[item][0]))
+        AlignedPrint(item, ident_print, choiсe[item][0])
 
 
 def get_dict_odd(item_equ: str) -> list:
@@ -144,8 +162,7 @@ def UniteTwoOdds(odd1: dict, odd2: dict) -> dict:
 def MakeEquation(odd: dict) -> str:
     newEq = str()
     lstOdd = list(odd.keys())
-    lstOdd.sort()
-    lstOdd.reverse()
+    lstOdd.sort(reverse=True)    # lstOdd.reverse()
     for i in lstOdd:
         if i != '0':
             if odd.get(i) > 0:
@@ -170,7 +187,7 @@ def MakeEquation(odd: dict) -> str:
 choiсeDct = dict()
 dct = FillDictJournal()
 for item in dct:
-    print('{}\t\t\t{}'.format(item, dct[item][0]))
+    AlignedPrint(item, ident_print, dct[item][0])
 print('\nДля создания нового полинома из списка имеющихся '
       'выберите слагаемые полиномы из списка выше по имени файла\n')
 MakeChoiceFile(dct, choiсeDct)
@@ -185,5 +202,4 @@ dctEqn2 = MakeOddsFromEquation(choiсeDct[lstChDct[1]][0])
 untEqn = UniteTwoOdds(dctEqn1, dctEqn2)
 newEquation = MakeEquation(untEqn)
 Mpl.save_to_file(fileUnionEquation, newEquation)
-print('{}\t\t\t{}'.format(fileUnionEquation, newEquation))
-
+AlignedPrint(fileUnionEquation, ident_print, newEquation)

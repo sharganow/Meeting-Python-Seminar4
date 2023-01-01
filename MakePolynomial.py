@@ -8,6 +8,8 @@
 # Расширить значение коэффициентов до [-100..100]
 
 # P.S. данную задачу я дополнил фукцией ведения журнала сформированных файлов для облегчения поиска последних
+#       Файл с функциями используется как библиотека для второй задачи, для проверки этой задачи нужно разком-
+#       ментировать последнюю строку №123
 
 journal = 'journal.pln'
 
@@ -118,4 +120,4 @@ def addFileNameToJournal(name: str) -> None:
         data.write(new)
 
 
-save_to_file(enter_filename(), make_polinomial(enter_digry_polynom()))
+# save_to_file(enter_filename(), make_polinomial(enter_digry_polynom()))
