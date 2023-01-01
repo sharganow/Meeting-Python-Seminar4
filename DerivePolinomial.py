@@ -6,6 +6,7 @@
 # Расширить значение коэффициентов до [-100..100]
 
 import MakePolynomial as Mpl
+import Randomizer as Cor
 ident_print = 20
 
 # import QuadraticEquation as Qe

@@ -50,11 +50,11 @@ def enter_digry_polynom() -> int:
 
 
 def make_polinomial(dgr: int) -> str:
-    import random
+    import Randomizer as Cor
     strng = ''
     cnt_plnml = 0
     for d in range(dgr, -1, -1):
-        k = random.randint(-100, 100)
+        k = Cor.RandInt(-100, 100)
         if k:
             if d:
                 strng += f' {k}*x**{d} '
