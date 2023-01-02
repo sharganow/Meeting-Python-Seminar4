@@ -2,17 +2,9 @@
 
 import textwrap
 import time
+import random
 import math
-
-ident_print = 20
-
-
-def AlignedPrint(start, indent, second) -> None:
-    multiple = 0
-    indent_str = '\t'  # эквивалентно четырём символам
-    multiple = indent // 4 - len(str(start)) // 4
-    indent_str *= multiple
-    print('{}{}{}'.format(start, indent_str, second))
+ident_print = 10
 
 
 def GetNumSigns(value: int) -> int:
@@ -28,7 +20,6 @@ def GetRandStr() -> str:
     ter = list(str(time.perf_counter()).split('.'))
     while len(ter[1]) < 7:
         ter[1] += '0'
-    # AlignedPrint(ter[0], ident_print, ter[1])
     return ter[1]
 
 
@@ -56,15 +47,10 @@ def RandInt(start: int, stop: int) -> int:
 
     strtLst = list(randStr)
     randLst = list()
-    # print(*strtLst)
     while len(strtLst):
         randLst.append(strtLst.pop(GetRandSign(len(strtLst))))
-    # strtLst = randLst.copy()
-    # strtLst.sort()
     semiRand = int(''.join(randLst))
     limitRand = int('9' * numSignDelta)
-    # AlignedPrint(semiRand, ident_print, limitRand)
-    # AlignedPrint(strtLst, ident_print, randLst)
     deltaRand = round((delta * semiRand) / limitRand)
     return start + deltaRand
 
@@ -96,10 +82,31 @@ def RandInt(start: int, stop: int) -> int:
 # print(time.perf_counter())
 # print(time.process_time())
 # print(time.time())
+
+
+# def AlignedPrint(start, indent, second) -> None:
+#     multiple = 0
+#     indent_str = '\t'  # эквивалентно четырём символам
+#     multiple = indent // 4 - len(str(start)) // 4
+#     indent_str *= multiple
+#     print('{}{}{}'.format(start, indent_str, second))
 #
-# for _ in range(1000):
-#     ter = time.perf_counter()
-#     nic = time.monotonic()                  # для генератора случайных чисел не подходит
-#     time.sleep(1 / (10000 + _))
-#     AlignedPrint(nic, ident_print, ter)
-#     # print(type(ter))
+#
+# rands = dict()
+# controlCycl = 0
+# for _ in range(10000):
+#     # rand = random.randint(-200, 200)
+#     rand = RandInt(200, -200)
+#     if rand in rands:
+#         rands[rand] += '*'
+#     else:
+#         rands[rand] = '*'
+#     controlCycl += 1
+#     time.sleep(1 / 10000)
+#
+# randKeys = list(rands.keys())
+# randKeys.sort()
+# for i in randKeys:
+#     AlignedPrint(i, ident_print, rands[i])
+#
+# print(f'В заданном диапазоне значений выпало случайным образом {len(rands)} значений из {controlCycl} попыток')
